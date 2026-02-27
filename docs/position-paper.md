@@ -55,7 +55,8 @@ Finally, even multi-agent penetration testing systems that include a nominal “
 ---
 
 ## 4. Framework
-![framework](./framework.png)
+![framework](./framework.png)  
+*Figure 1: Key Components of the System*  
 
 This section presents a **reconnaissance-centric AI agent framework** designed to overcome the conceptual and practical limitations of current LLM-based penetration testing agents. Unlike prior end-to-end approaches that treat reconnaissance as a transient preprocessing step, this framework elevates reconnaissance to the **core organizing principle** of agent behavior. The system is implemented as a **multi-agent architecture**, where a central **planner agent** orchestrates the reconnaissance process by assigning tasks, sequencing actions, and integrating findings. Individual agents serve as **tool and technique experts**, each specialized in specific reconnaissance methods such as network scanning, web application enumeration, open-source intelligence gathering, or social engineering. By explicitly separating planning, reasoning, and tool execution, the framework mirrors the structure of human penetration testing teams, enabling more adaptive, efficient, and realistic reconnaissance.
 
@@ -63,11 +64,14 @@ The framework is structured around three fundamental questions: **what** informa
 
 ### 4.1 Information Gathered & Techniques
 
-![info](https://dl.acm.org/cms/10.1145/3538704/asset/6e50b741-373f-4689-9f75-85054d992f71/assets/images/medium/csur-2020-0382-f01.jpg)  
+![info](./csur-2020-0382-f01.jpg)  
+*Figure 2: Categories of target information for reconnaissance. taken from [1]*  
 At the foundation of the framework is a formal representation of reconnaissance information types and the techniques used to acquire them. Information is categorized across dimensions such as asset discovery, technology identification, trust relationships, system configurations, and environmental context. Each category is linked to specific techniques, spanning passive intelligence collection, active probing, and hybrid methods.[1]
 
 
-![techniques](https://dl.acm.org/cms/10.1145/3538704/asset/141c2f16-2cb8-4d06-be3d-816423262c04/assets/images/medium/csur-2020-0382-f03.jpg)  
+![techniques](./csur-2020-0382-f03.jpg)  
+*Figure 3: Taxonomy of reconnaissance techniques. taken from [1]*
+
 To support specialization, **individual agents are modeled as technique or tool experts**. Each expert agent maintains proficiency in a defined set of reconnaissance methods and tools, such as port scanners, web crawlers, or threat intelligence databases. The planner coordinates these experts, dynamically assigning tasks, combining complementary expertise, and ensuring that information collected across agents is synthesized into a coherent view of the target. [1]
 
 ### 4.2 Reasoning Module
@@ -75,14 +79,16 @@ To support specialization, **individual agents are modeled as technique or tool 
 The planner agent serves as the cognitive core of the multi-agent framework, using an LLM as a dedicated planning module to decompose high-level reconnaissance goals into sub-tasks, prioritize objectives, and sequence actions based on evolving observations. Unlike reactive agents, this approach explicitly separates reasoning from execution, enabling iterative plan refinement, hypothesis updating, and uncertainty management, as emphasized in recent surveys of LLM agent planning. [6] The planner delegates tasks to specialized tool/technique expert agents, integrates their observations, and continuously adjusts the reconnaissance strategy, mirroring reflection-based planning methods that improve multi-step task performance. By embedding structured planning within the agent, the framework supports long-horizon reasoning, adaptive prioritization, and realistic modeling of adversarial decision-making, addressing limitations of current end-to-end LLM-based penetration testing agents.
 
 ### 4.3 Phases of Reconnaissance
-![ext_int](https://dl.acm.org/cms/10.1145/3538704/asset/508d8775-f098-46e0-bb86-e47494418e06/assets/images/medium/csur-2020-0382-f02.jpg)
-
+![ext_int](./csur-2020-0382-f02.jpg)  
+*Figure 4: External and internal reconnaissance. taken from [1]*  
 
 The framework explicitly models reconnaissance as a **phased process**, distinguishing between external reconnaissance (focusing on open-source intelligence, third-party data, and passive observation) and internal reconnaissance (focusing on system topology, configuration, and privilege relationships after initial access). The planner adapts agent assignments and techniques based on the current phase, ensuring that the system applies the right methods at the right stage of engagement. This phase-aware design enhances both efficiency and realism. [1]
 
 ### 4.4 System Architecture
 
 ![LLM architecture](https://arxiv.org/html/2510.09244v1/img/constitution_of_agents.png)
+*Figure 5: Key Components of an Agent’s LLM Architecture. taken from [5]*  
+
 
 From a systems perspective, the framework is decomposed into modular components: the **planner agent**, a **memory subsystem**, and a suite of **specialized tool/technique expert agents**. The planner orchestrates the overall process, maintains a global view of collected information, and updates hypotheses. The memory subsystem captures both short-term observations and long-term knowledge to support iterative reasoning and prevent redundant operations. Expert agents act on planner instructions, executing their assigned techniques and reporting findings in structured formats. This modular design promotes extensibility, interpretability, and targeted benchmarking, unlike monolithic end-to-end agent designs. [5]
 
